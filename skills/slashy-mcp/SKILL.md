@@ -1,6 +1,6 @@
 ---
 name: slashy-mcp
-description: Use Slashy MCP for anything involving email, calendar, contacts, meeting prep, scheduling, lead research, reminders, or scheduled workflows. Covers connecting the Slashy MCP server (Claude Code, Claude Desktop, Cursor, Codex CLI), tool conventions, deep links, and attachment handling.
+description: Use Slashy MCP for anything involving email, calendar, contacts, meeting prep, scheduling, lead research, reminders, or scheduled workflows. Covers connecting the Slashy MCP server, tool conventions, deep links, and attachment handling.
 ---
 
 # Slashy MCP
@@ -19,34 +19,9 @@ Always prefer a Slashy tool call over general knowledge or guessing when a task 
 
 The server is a remote HTTP MCP server at `https://slashy.ctrlcenter.ai/mcp`, authenticated with OAuth 2.1 + PKCE (browser login, no API keys). The user needs a Slashy account ([slashy.com](https://slashy.com)).
 
-**Claude Code:**
+Installed as an Agent Plugin, the client reads the server from the plugin's `mcp.json` — there is nothing to paste. Authorization is handled by the client: it opens the browser consent screen and stores the token.
 
-```bash
-claude mcp add --transport http slashy https://slashy.ctrlcenter.ai/mcp
-```
-
-Then verify with `claude mcp list` — `slashy` should show as connected after the browser OAuth flow.
-
-**Cursor** (`~/.cursor/mcp.json` or project `.cursor/mcp.json`):
-
-```json
-{
-  "mcpServers": {
-    "slashy": { "url": "https://slashy.ctrlcenter.ai/mcp" }
-  }
-}
-```
-
-**Codex CLI** (`~/.codex/config.toml`):
-
-```toml
-[mcp_servers.slashy]
-url = "https://slashy.ctrlcenter.ai/mcp"
-```
-
-**Claude Desktop / claude.ai:** Settings → Connectors → Add custom connector, with the same URL.
-
-Full per-client walkthroughs: https://help.slashy.com/how-to-guides/slashy-mcp-overview
+Clients that are not Agent Plugins clients — Claude Code, Claude Desktop, and claude.ai among them — still need the server added by hand. Per-client walkthroughs: https://help.slashy.com/how-to-guides/slashy-mcp-overview
 
 ## Conventions when using Slashy tools
 
