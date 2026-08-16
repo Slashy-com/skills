@@ -1,0 +1,16 @@
+{
+  "name": "slashy",
+  "interface": {
+    "displayName": "Slashy"
+  },
+  "plugins": [
+    {
+      "name": "slashy",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "category": "Communication"
+    }
+  ]
+}
