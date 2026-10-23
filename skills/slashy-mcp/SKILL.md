@@ -40,11 +40,15 @@ https://slashy.com/t/{inbox_email}/{thread_id}
 - Always use `slashy.com` — never `app.slashy.com` or a `mailto:` link.
 - Deep links exist only for threads and drafts, not calendar events.
 
-**Attachments.** Files under ~256 KB can go inline via `upload_file`. For larger files use the three-step flow:
+**Attachments.** For an existing local file, keep its bytes out of model context and use the presigned upload flow. Reserve `upload_file` for small generated content under 200 KB that already exists in context; it is not a step in the presigned flow.
 
-1. `request_file_upload(filename, content_type)` → returns a presigned `upload_url` and `file_id`
-2. HTTP `PUT` the file bytes to `upload_url` (it expires after a few minutes — upload immediately)
-3. Pass the `file_id` to `draft_email` / `send_email` as an attachment reference
+1. Verify the local file's name, MIME type, and byte size. Files must be no larger than 24 MB.
+2. `request_file_upload(filename, mime_type, size_bytes)` returns a presigned `upload_url` and `file_id`.
+3. Upload directly from disk with `curl -X PUT -F 'file=@/absolute/path;type=MIME_TYPE' 'UPLOAD_URL'`. The URL expires after two hours; treat it as a temporary credential and do not log or repeat it.
+4. Call `check_upload_status(file_id)` and require the `uploaded` state before drafting.
+5. Pass the `file_id` to `draft_email` / `send_email` in `attachment_file_ids`, then confirm the resulting draft or message reports the expected attachment. Do not blindly retry draft creation because that can create duplicates.
+
+Never read or reproduce a local attachment as base64 through model input or tool arguments. Chunking or line wrapping does not solve that transport problem. For files above 24 MB, use a Drive link uploaded outside model context or the authenticated Gmail UI.
 
 **Permissions.** Slashy tools respect the account's granted scopes. If a tool needs access the user hasn't granted, it returns a clear error with an authorization link — surface that link to the user.
 
