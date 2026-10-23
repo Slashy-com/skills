@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "slashy",
-  "version": "1.0.0",
-  "description": "Email, calendar, contact research, and meeting prep through the Slashy MCP server.",
+  "version": "1.1.0",
+  "description": "Gmail and Outlook mail, Google and Outlook Calendar, contact research, and meeting prep through the Slashy MCP server.",
   "author": {
     "name": "Slashy",
     "url": "https://slashy.com"
@@ -10,5 +10,5 @@
   "homepage": "https://help.slashy.com/how-to-guides/slashy-mcp-overview",
   "repository": "https://github.com/Slashy-com/skills",
   "license": "MIT",
-  "keywords": ["email", "calendar", "gmail", "scheduling", "mcp"]
+  "keywords": ["email", "calendar", "gmail", "outlook", "scheduling", "mcp"]
 }

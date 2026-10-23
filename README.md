@@ -4,7 +4,7 @@ Agent skills and the Agent Plugin for [Slashy](https://slashy.com), the AI email
 
 ## Install as an Agent Plugin
 
-The plugin bundles the `slashy-mcp` skill **and** the Slashy MCP server config, so a
+The plugin bundles the Slashy skills **and** the Slashy MCP server config, so a
 compatible client wires up both in one step — no hand-editing MCP config.
 
 **Codex CLI:**
@@ -35,6 +35,11 @@ For agents that load skills but not plugins:
 npx skills add Slashy-com/skills
 ```
 
+This installs seven skills: the general `slashy-mcp` guide plus workflows for
+onboarding, inbox briefings, reply and follow-up sweeps, meeting-to-email,
+relationship briefs, and automation setup. To install one workflow, add
+`--skill <skill-name>` to the command.
+
 Works with Claude Code, Cursor, Codex, Copilot, Windsurf, and any other agent supported by
 the [skills CLI](https://skills.sh). You will need to add the MCP server yourself — see the
 [per-client guides](https://help.slashy.com/how-to-guides/slashy-mcp-overview).
@@ -45,7 +50,7 @@ the [skills CLI](https://skills.sh). You will need to add the MCP server yoursel
 |------|------------|
 | [`plugin.json`](plugin.json) | Agent Plugin manifest ([spec 1.0.0](https://agent-plugins.org)). This repo root is the plugin. |
 | [`mcp.json`](mcp.json) | Declares the Slashy MCP server, so clients configure it on install. |
-| [`skills/slashy-mcp`](skills/slashy-mcp/SKILL.md) | Teaches your agent to use the Slashy MCP server for email, calendar, meeting prep, contact research, and scheduled workflows — including deep links and attachment handling. |
+| [`skills/`](skills/) | Seven skills: general MCP guidance and six focused workflows for email, calendar, relationships, and automations. |
 | [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json) | Codex marketplace catalog, so `codex plugin marketplace add` can install from this repo. |
 
 ## Docs
