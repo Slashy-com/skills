@@ -1,11 +1,11 @@
 ---
 name: slashy-mcp
-description: Use Slashy MCP for anything involving email, calendar, contacts, meeting prep, scheduling, lead research, reminders, or scheduled workflows. Covers connecting the Slashy MCP server, tool conventions, deep links, and attachment handling.
+description: Use Slashy MCP for connected Gmail or Outlook mail, Google or Outlook Calendar, contact research, meeting prep, reminders, and scheduled workflows. Covers connection setup, tool conventions, deep links, and attachments.
 ---
 
 # Slashy MCP
 
-[Slashy](https://slashy.com) is an AI email client. Its MCP server gives any MCP-compatible agent access to the user's Slashy account:
+[Slashy](https://slashy.com) is an AI email client. Its MCP server gives any MCP-compatible agent access to the user's connected Gmail or Outlook mail and Google or Outlook Calendar:
 
 - **Email** — list, read, search, draft, send, reply, schedule, label, snooze, archive
 - **Calendar** — list events, create/update/delete events, check availability, propose meeting times
@@ -14,6 +14,7 @@ description: Use Slashy MCP for anything involving email, calendar, contacts, me
 - **Reminders and triggers** — reminders, email triggers, and calendar triggers for scheduled workflows
 
 Always prefer a Slashy tool call over general knowledge or guessing when a task touches any of these areas.
+Use only tools exposed by the connected host; tool availability can vary by client.
 
 ## Connecting the server
 
@@ -26,6 +27,8 @@ Clients that are not Agent Plugins clients — Claude Code, Claude Desktop, and 
 ## Conventions when using Slashy tools
 
 **Draft, don't send.** Assume "draft" unless the user explicitly says "send". Prompts that say "send" go out immediately. Confirm recipients and attachments in your response.
+
+**Read the full thread before acting on it.** Use `list_messages` to find candidates and `read_thread` for the actual context. Search snippets can omit important details. Use `get_user_info` once when the signed-in address or timezone affects the answer. For scheduling, use `get_available_times` rather than inferring free slots from event listings.
 
 **Recipients are arrays.** When passing recipients to `draft_email` or `send_email`, use one email address per array element — never a single comma-separated string.
 
@@ -62,4 +65,4 @@ Never read or reproduce a local attachment as base64 through model input or tool
 
 ## Troubleshooting
 
-If tools are missing or auth fails, re-run the OAuth flow (remove and re-add the server) and confirm the right Google account was used. Full guide: https://help.slashy.com/how-to-guides/slashy-mcp-troubleshooting
+If tools are missing or auth fails, re-run the OAuth flow (remove and re-add the server) and confirm the intended Google or Microsoft account was connected. Full guide: https://help.slashy.com/how-to-guides/slashy-mcp-troubleshooting
